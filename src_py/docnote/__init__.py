@@ -31,6 +31,7 @@ class MarkupLang(Enum):
 class ReftypeMarker(Enum):
     METACLASS = 'metaclass'
     DECORATOR = 'decorator'
+    DECORATOR_SECOND_ORDER = 'decorator_2o'
 
 
 @dataclass(frozen=True, slots=True)
