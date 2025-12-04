@@ -13,6 +13,7 @@ from typing import Any
 from typing import Final
 from typing import LiteralString
 from typing import TypedDict
+from uuid import UUID
 
 __all__ = [
     'DocnoteConfig',
@@ -55,6 +56,7 @@ class Note:
 
 
 class DocnoteConfigParams(TypedDict, total=False):
+    id_: str | int | UUID
     canonical_module: str
     canonical_name: str
     enforce_known_lang: bool
@@ -94,6 +96,15 @@ class DocnoteConfig:
     entire project, by attaching a config to the toplevel
     ``__init__.py``.
     """
+    id_: Annotated[
+            str | int | UUID | None,
+            Note('''Set this to create a permanent identifier for the
+                attached object. This can be useful to retain a unique
+                identifier that persists beyond object renaming, or to
+                create a reliable reference point for difficult-to-identify
+                syntactical objects, such as the signature of a particular
+                override for a callable.''')
+        ] = field(default=None, metadata={'docnote.stacked': False})
     canonical_module: Annotated[
             str | None,
             Note('''Set this to the fullname of a module (for example,
